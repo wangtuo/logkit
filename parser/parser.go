@@ -35,6 +35,7 @@ const (
 	TypeInnerMysql = "_mysql"
 	TypeJson       = "json"
 	TypeNginx      = "nginx"
+	TypeLogDB      = "logdbParser"
 )
 
 type Label struct {
@@ -60,6 +61,8 @@ func NewParserRegistry() *ParserRegistry {
 	ps.RegisterParser(TypeInnerMysql, NewJsonParser) //兼容
 	ps.RegisterParser(TypeJson, NewJsonParser)
 	ps.RegisterParser(TypeNginx, NewNginxParser)
+	ps.RegisterParser(TypeLogDB, NewLogdbParser)
+
 	return ps
 }
 
