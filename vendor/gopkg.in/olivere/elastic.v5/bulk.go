@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"net/url"
 
+	"github.com/json-iterator/go"
 	"gopkg.in/olivere/elastic.v5/uritemplates"
 )
 
@@ -241,9 +242,12 @@ func (s *BulkService) Do(ctx context.Context) (*BulkResponse, error) {
 
 	// Return results
 	ret := new(BulkResponse)
-	if err := s.client.decoder.Decode(res.Body, ret); err != nil {
+	if err := jsoniter.Unmarshal(res.Body, ret); err != nil {
 		return nil, err
 	}
+	//if err := s.client.decoder.Decode(res.Body, ret); err != nil {
+	//	return nil, err
+	//}
 
 	// Reset so the request can be reused
 	s.reset()
